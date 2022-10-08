@@ -7,15 +7,12 @@ import { MessageService } from 'src/message/message.service';
 export class TaskService {
   constructor(private messageService: MessageService) {}
 
-  @Cron(CronExpression.EVERY_MINUTE)
+  @Cron(CronExpression.EVERY_HOUR)
   async runEveryHour() {
     const time = moment(Date.now()).tz('Asia/Seoul').format('YYYY-MM-DD HH:mm:ss');
 
     console.log(`CRON JOB RUN EVERY_HOUR AT: ${time}`);
 
-    await Promise.all([
-      this.messageService.test(time),
-    ]);
+    this.messageService.test(time);
   }
-
 }
