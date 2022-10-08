@@ -1,0 +1,14 @@
+version: '3.5'
+services:
+  worker:
+    container_name: "worker"
+    restart: on-failure
+    build: .
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+    command: >
+      sh -c "npm install && npm run start:dev"
+networks:
+  default:
+    name: '${NETWORK_NAME}'
